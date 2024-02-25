@@ -9,7 +9,7 @@
     <div class="tab" id="frontscreen">
         <div class="mainbuttons" id="screentimebutton"><b>Screen
                 Time</b></div>
-        <div class="mainbuttons" id="settingsbutton"><b>Settings</b></div>
+        <div class="mainbuttons" id="settingsbutton"><b>Goals and Reminders</b></div>
     </div>
     <div class="tab" id="screentime">
         <div class="day">
@@ -49,15 +49,40 @@
     </div>
     <div class="tab" id="settings">
         <div style="margin:auto; margin-top: 10px; font-size: 20pt">Settings</div>
-        <div style="margin:auto; font-size: 10pt; display: inline;">Annoying Reminders (when you've been on for too
-            long)
-            <input type="checkbox" id="remindertoggle">
+        <div class="setting">
+            Screen Time Goal:
+            <input type="number" id="goal">
+            minutes
+        </div>
+        <div class="setting">Text Replacement
+            <input type="checkbox" id="replacetoggle">
+            <div>Text: <input type="text" id="replacetext"></div>
+        </div>
+        <div class="setting">
+            Alerts <input type="checkbox" id="alerttoggle">
+            <div>Text: <input type="text" id="alerttext"></div>
+            <div>Frequency: <input type="number" id="alertfreq"> minutes</div>
+        </div>
+        <div class="setting">
+            <div>Custom Comments</div>
+            <div> &lt;30min: <input type="text" class="cc"></div>
+            <div> &lt;1hr: <input type="text" class="cc"></div>
+            <div> &lt;2hr: <input type="text" class="cc"></div>
+            <div> &lt;4hr: <input type="text" class="cc"></div>
+            <div> &lt;8hr: <input type="text" class="cc"></div>
+            <div> &gt;8hr: <input type="text" class="cc"></div>
         </div>
         <button class="backbutton" id="exitsettings">
             <img src="backarrow.png" id="backarrow">
         </button>
-    </div>
 
+        <div class="desc" id="goaldesc">Set a daily screen time goal!</div>
+        <div class="desc" id="replacedesc">When you're over your goal, replace text randomly on websites to help remind
+            you!</div>
+        <div class="desc" id="alertdesc">Send notifications to take a break! Note: certain notification settings must be
+            turned on</div>
+        <div class="desc" id="commentdesc">Give yourself motivation on the Screen Time tab!</div>
+    </div>
 </body>
 <script src="script.js"></script>
 <style>
@@ -65,14 +90,9 @@
         border-top: 2px solid #8e7cc3;
     }
 
-    html {
+    body {
         width: 400px;
         height: 300px;
-    }
-
-    body {
-        width: 100%;
-        height: 100%;
         background-color: #f3f3f3;
         display: overlay;
         margin: 0;
@@ -133,6 +153,35 @@
         color: rgb(75, 75, 75);
         margin: auto;
         margin-top: 10px;
+    }
+
+    .desc {
+        font-family: inherit;
+        position: fixed;
+        top: 100%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transition: top 0.5s;
+        height: 10%;
+        text-align: center;
+        border: dashed #674ea7 2px;
+        background-color: #fbfbfb;
+        padding-top: 5px;
+    }
+
+    .setting {
+        margin: auto;
+        display: block;
+        font-size: 10pt;
+        margin-top: 10px;
+        transition: background-color 0.5s, font-size 0.5s;
+    }
+
+    .setting:hover {
+        background-color: #fbfbfb;
+        font-size: 12pt;
+        transition: background-color 0.5s, font-size 0.5s;
     }
 
     .timetext {

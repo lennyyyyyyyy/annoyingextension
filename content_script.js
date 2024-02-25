@@ -1,3 +1,4 @@
+chrome.runtime.sendMessage({ msg: "wakeup" });
 function textInsert(chance, string) {
     const collection = document.querySelectorAll("*");
     for (let i = 0; i < collection.length; i++) {
@@ -11,23 +12,12 @@ function textInsert(chance, string) {
     }
 }
 
-chrome.storage.local.get("giveReminders").then((result) => {
-    let giveReminders = result.giveReminders;
-    if (giveReminders) {
-        chrome.storage.local.get("screenTime").then((result2) => {
-            let time = result2.screenTime[0];
-            if (time > 4 * 60 * 60) {
-                if (time < 6 * 60 * 60) {
-                    textInsert(0.01, " go outside ");
-                } else if (time < 8 * 60 * 60) {
-                    textInsert(0.02, " take a shower ");
-                    textInsert(0.02, " pls go outside ");
-                } else {
-                    textInsert(0.1, " TAKE A SHOWER ");
-                    textInsert(0.1, " GO OUTSIDE ");
-                }
-            }
-        });
+chrome.storage.local.get(["replaceBool", "screenTime", "goal", "replaceText"]).then((result) => {
+    if (result.replaceBool) {
+        let time = result.screenTime[0];
+        if (time > result.goal * 60) {
+            textInsert(0.01, result.replaceText);
+        }
     }
 });
 
