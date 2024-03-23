@@ -25,17 +25,18 @@ setDefault("customcomments", ["", "", "", "", "", ""]);
 
 function updateScreenTime() {
     chrome.storage.local.get(["screenTime", "lastOnline", "goal", "alertBool", "alertText", "alertFreq"]).then((result) => {
+        let newDate = new Date();
         let time = result.screenTime;
         let changed = [0, 0, 0, 0];
         let normal = [time[0] + updateTime, time[1], time[2], time[3]];
-        let diff = date.getDate() - result.lastOnline;
+        let diff = newDate.getDate() - result.lastOnline;
         if (diff >= 0 && diff <= 3) {
             for (let i = diff; i < 4; i++) {
                 changed[i] = normal[i - diff];
             }
         }
         chrome.storage.local.set({ screenTime: changed });
-        chrome.storage.local.set({ lastOnline: date.getDate() });
+        chrome.storage.local.set({ lastOnline: newDate.getDate() });
 
         // alerts
         if (result.alertBool && time[0] >= result.goal * 60 && (time[0] - result.goal * 60) % (result.alertFreq * 60) == 0) {
